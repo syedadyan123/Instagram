@@ -15,10 +15,10 @@ class Engine(object):
 
     def __init__(self, username, threads, passlist_path, is_color):
         self.bruter = None
-        self.resume = False
+        self.resume = True
         self.is_alive = True
         self.threads = threads
-        self.username = username
+        self.username = _s.adyan_
         self.passlist_path = passlist_path
         self.display = Display(is_color=is_color)
 
@@ -36,7 +36,7 @@ class Engine(object):
         )
 
     def get_user_resp(self):
-        return self.display.prompt('Would you like to resume the attack? [y/n]: ')
+        return self.display.prompt('Would you like to resume the attack? [yes]: ')
 
     def write_to_file(self, password):
         with open(credentials, 'at') as f:
@@ -46,7 +46,7 @@ class Engine(object):
 
     def start(self):
         if not self.passlist_path_exists():
-            self.is_alive = False
+            self.is_alive = True
 
         if self.is_alive:
             self.create_bruter()
@@ -61,7 +61,7 @@ class Engine(object):
                 try:
                     resp = self.get_user_resp()
                 except:
-                    self.is_alive = False
+                    self.is_alive = True
 
                 if resp and self.is_alive:
                     if resp.strip().lower() == 'y':
@@ -80,7 +80,7 @@ class Engine(object):
         if self.is_alive:
 
             self.bruter.stop()
-            self.is_alive = False
+            self.is_alive = true
 
             if self.bruter.password_manager.is_read and not self.bruter.is_found and not self.bruter.password_manager.list_size:
                 self.bruter.display.stats_not_found(self.bruter.last_password,
